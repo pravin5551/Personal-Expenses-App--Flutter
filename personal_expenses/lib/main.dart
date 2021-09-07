@@ -1,5 +1,8 @@
+import 'dart:core';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import './transaction.dart';
 
 void main() => runApp(MyApp());
@@ -15,6 +18,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+
+
   final List<Transaction> transaction = [
     Transaction(
       id: 't1',
@@ -29,7 +34,10 @@ class MyHomePage extends StatelessWidget {
       dateTime: DateTime.now(),
     ),
   ];
-
+  // String titleInout;
+  // String amountInput;
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +46,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
             width: double.infinity,
@@ -46,6 +54,43 @@ class MyHomePage extends StatelessWidget {
               color: Colors.blue,
               child: Text('CHART!'),
               elevation: 5,
+            ),
+          ),
+          Card(
+            elevation: 5,
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    TextField(
+                      autofocus: true,
+                      decoration: InputDecoration(labelText: 'Title'),
+                      // onChanged: (lol){
+                      //   titleInout =lol;
+                      // },
+                      controller: titleController,
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Amount'),
+                      // onChanged: (lol){
+                      //   amountInput =lol;
+                      // },
+                      controller: amountController,
+                    ),
+                    TextButton(
+
+                      style: TextButton.styleFrom(
+                        primary: Colors.orange,
+                      ),
+                      onPressed: () {},
+                      child: Text('Add Transaction'),
+
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
           Column(
@@ -58,7 +103,6 @@ class MyHomePage extends StatelessWidget {
                         decoration: BoxDecoration(
                             border: Border.all(
                               width: 2,
-
                               color: Colors.green,
                             ),
                             color: Colors.pinkAccent),
@@ -69,8 +113,12 @@ class MyHomePage extends StatelessWidget {
                               Icons.attach_money,
                             ),
                           ),
-                          trailing: Text('Amount : \$${tx.amount.toString()}', style: TextStyle(color: Colors.black, fontSize: 15),),
-                          subtitle: Text(tx.dateTime.toString()),
+                          trailing: Text(
+                            'Amount : \$${tx.amount.toString()}',
+                            style: TextStyle(color: Colors.black, fontSize: 15),
+                          ),
+                          subtitle:
+                              Text(DateFormat.yMMMd().format(tx.dateTime)),
                         ),
                       ),
                     ))
