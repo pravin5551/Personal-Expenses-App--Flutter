@@ -51,8 +51,27 @@ class MyHomePage extends StatelessWidget {
           Column(
             children: transaction
                 .map((tx) => Card(
-                      color: Colors.red,
-                      child: Text(tx.title),
+                      color: Colors.white,
+                      child: Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.green,
+                            ),
+                            color: Colors.pinkAccent),
+                        child: ListTile(
+                          title: Text(tx.title),
+                          leading: CircleAvatar(
+                            child: Icon(
+                              Icons.attach_money,
+                            ),
+                          ),
+                          trailing: Text('Amount : \$${tx.amount.toString()}', style: TextStyle(color: Colors.black, fontSize: 15),),
+                          subtitle: Text(tx.dateTime.toString()),
+                        ),
+                      ),
                     ))
                 .toList(),
           )
