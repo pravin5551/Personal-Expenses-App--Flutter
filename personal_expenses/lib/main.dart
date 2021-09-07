@@ -58,6 +58,7 @@ class MyHomePage extends StatelessWidget {
                         decoration: BoxDecoration(
                             border: Border.all(
                               width: 2,
+
                               color: Colors.green,
                             ),
                             color: Colors.pinkAccent),
