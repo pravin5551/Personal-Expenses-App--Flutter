@@ -1,13 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   final Function addTx;
 
   NewTransaction(this.addTx);
 
+  @override
+  _NewTransactionState createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
+
+  void submitData() {
+    final enteredTitle = titleController.text;
+    final entredAmount = double.parse(amountController.text);
+    if (enteredTitle.isEmpty || entredAmount <= 0) {
+      return;
+    }
+
+    widget.addTx(
+      enteredTitle,
+      entredAmount,
+    );
+
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +59,9 @@ class NewTransaction extends StatelessWidget {
                   primary: Colors.orange,
                 ),
                 onPressed: () {
-                  addTx(titleController.text,
-                      double.parse(amountController.text));
+                  // addTx(titleController.text,
+                  //     double.parse(amountController.text));
+                  submitData();
                 },
                 child: Text('Add Transaction'),
               ),
@@ -51,3 +72,23 @@ class NewTransaction extends StatelessWidget {
     );
   }
 }
+
+/**
+ *  TextField(
+    autofocus: true,
+    decoration: InputDecoration(labelText: 'Title'),
+    // onChanged: (lol){
+    //   titleInout =lol;
+    // },
+    controller: titleController,
+    ),
+    TextField(
+    decoration: InputDecoration(labelText: 'Amount'),
+    // onChanged: (lol){
+    //   amountInput =lol;
+    // },
+    controller: amountController,
+    keyboardType: TextInputType.number,
+    // onSubmitted: (_) => submitData,
+    ),
+ */
