@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:personal_expenses/widgets/chart.dart';
 import 'package:personal_expenses/widgets/new_transaction.dart';
 import 'package:personal_expenses/widgets/transaction_list.dart';
 import 'package:personal_expenses/widgets/user_transaction.dart';
@@ -36,19 +37,29 @@ class _MyHomePageState extends State<MyHomePage> {
   // final amountController = TextEditingController();
 
   final List<Transaction> _userTransaction = [
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 69.69,
-      dateTime: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'New Book',
-      amount: 85,
-      dateTime: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: 't1',
+    //   title: 'New Shoes',
+    //   amount: 69.69,
+    //   dateTime: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'New Book',
+    //   amount: 85,
+    //   dateTime: DateTime.now(),
+    // ),
   ];
+
+  List<Transaction> get _recentTransaction {
+    return _userTransaction.where(
+      (element) => element.dateTime.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      ),
+    ).toList();
+  }
 
   void _addNewTransaction(String title, double amount) {
     final newTx = Transaction(
@@ -92,14 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                child: Text('CHART!'),
-                elevation: 5,
-              ),
-            ),
+            Chart(_recentTransaction),
             TransactionList(_userTransaction),
           ],
         ),
