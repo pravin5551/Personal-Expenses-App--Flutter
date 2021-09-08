@@ -11,7 +11,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 800,
       child: ListView(
         children: _userTransaction
             .map(
@@ -26,7 +26,7 @@ class TransactionList extends StatelessWidget {
                   ),
                   color: Colors.pinkAccent),
               child: ListTile(
-                title: Text(tx.title),
+                title: Text(tx.title, style: TextStyle(fontFamily: 'OpenSans')),
                 leading: CircleAvatar(
                   child: Icon(
                     Icons.attach_money,
@@ -36,7 +36,7 @@ class TransactionList extends StatelessWidget {
                   'Amount : \$${tx.amount.toString()}',
                   style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
-                subtitle: Text(DateFormat.yMMMd().format(tx.dateTime)),
+                subtitle: Text(DateFormat.yMMMd().format(tx.dateTime), style: TextStyle(fontWeight: FontWeight.bold),),
               ),
             ),
           ),
@@ -45,4 +45,3 @@ class TransactionList extends StatelessWidget {
     );
   }
 }
-
