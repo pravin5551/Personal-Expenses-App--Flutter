@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +21,7 @@ class _NewTransactionState extends State<NewTransaction> {
   void _submitData() {
     final enteredTitle = _titleController.text;
     final entredAmount = double.parse(_amountController.text);
-    if (enteredTitle.isEmpty || entredAmount <= 0 || _selectedDate==null) {
+    if (enteredTitle.isEmpty || entredAmount <= 0 || _selectedDate == null) {
       return;
     }
 
@@ -39,12 +41,11 @@ class _NewTransactionState extends State<NewTransaction> {
       firstDate: DateTime(2021),
       lastDate: DateTime.now(),
     ).then((pickDate) {
-      if(pickDate ==null){
+      if (pickDate == null) {
         return;
       }
       setState(() {
-        _selectedDate =pickDate;
-
+        _selectedDate = pickDate;
       });
     });
   }
@@ -81,20 +82,28 @@ class _NewTransactionState extends State<NewTransaction> {
                 child: Row(
                   children: <Widget>[
                     Expanded(
-                      child: Text('Chosen Date: ${_selectedDate==null ?'No date Chose!'
-                           : DateFormat.yMd().format(_selectedDate)}'),
+                      child: Text(
+                          'Chosen Date: ${_selectedDate == null ? 'No date Chose!' : DateFormat.yMd().format(_selectedDate)}'),
                     ),
                     SizedBox(
                       height: 10,
                       width: 10,
                     ),
-                    TextButton(
-                      child: Text(
-                        'Choose Date',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: _presentDatePicker,
-                    )
+                    Platform.isIOS
+                        ? CupertinoButton(
+                            child: Text(
+                              'Choose Date',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: _presentDatePicker,
+                          )
+                        : TextButton(
+                            child: Text(
+                              'Choose Date',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: _presentDatePicker,
+                          )
                   ],
                 ),
               ),
@@ -116,4 +125,3 @@ class _NewTransactionState extends State<NewTransaction> {
     );
   }
 }
-
