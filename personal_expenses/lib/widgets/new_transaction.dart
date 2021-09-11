@@ -88,6 +88,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     SizedBox(
                       height: 10,
                       width: 10,
+
                     ),
                     Platform.isIOS
                         ? CupertinoButton(
