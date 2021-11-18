@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//chart bar
+
 class ChartBar extends StatelessWidget {
   final String label;
   final double spendingAmount;
