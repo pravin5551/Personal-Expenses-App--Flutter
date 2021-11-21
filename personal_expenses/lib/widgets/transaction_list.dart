@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:personal_expenses/models/transaction.dart';
-
+//Transaction list
 class TransactionList extends StatelessWidget {
   final List<Transaction> _userTransaction;
   final Function dateTx;
